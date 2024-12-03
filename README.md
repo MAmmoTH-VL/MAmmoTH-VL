@@ -54,18 +54,14 @@ python predict_text_only.py # You could evaluate text-only inputs with this scri
 
 ## Sample Data and Format
 
-The `data/sample_data.json` file contains samples of the finetuning data used for training PANGEA. The `data/images` folder contains images referred to in the data sample.
-
-Here is an example of one such data instance:
+Here is an example of training data:
 
 ```json
 {
-   "id": ,
-   "image": ,
-   "conversations": [
-        
-   ],
-   "source": 
+   "id": str,
+   "image": str/array,
+   "video": str,
+   "conversations": array,
 }
 ```
 <!-- ![ex](data/images/cultural/2433684022797.0.jpg)
@@ -75,6 +71,7 @@ The corresponding image file for this example is located at `data/images/cultura
 ### Data Structure:
 - **id**: Unique identifier for the data sample.
 - **image**: The path to the image file used in this instance.
+- **video**: The path to the video file used in this instance.
 - **conversations**: A series of conversations between the "human" and the model (in this case, referred to as "gpt").
    - **from**: Identifies the speaker (either "human" or "gpt").
    - **value**: The content of the message, which can include both text and image references.
@@ -89,22 +86,32 @@ After setting up, initiate the pretraining phase:
 1. **Run the Pretraining Script**:
 
 ```bash
-cd pangea/train
-./LLaVA-NeXT/scripts/train/pretrain_pangea.sh
+cd train
+
+bash LLaVA-NeXT/scripts/train/mammoth_vl/pretrain_qwen_2_5.sh
 ```
 This result in the creation of a `mm_projector.bin` file essential for the finetuning stage.
 
-### Stage 2: Finetuning
+Once pretraining is complete, proceed to finetune the model: **Ensure Fine-tuning Data is Available**
 
-Once pretraining is complete, proceed to finetune the model:
+### Stage 2: Fine-tuning(SI)
 
-1. **Ensure Fine-tuning Data is Available**: Obtain the fine-tuning data and place it in the designated directory, as specified in the `finetune_pangea.sh` script. The training data will be publicly available on huggingface once we publish the paper.
+After obtaining the fine-tuning data, run the following script to begin fine-tuning:
 
-2. **Run the Fine-tuning Script**:
+```
+cd train
 
-```bash
-cd pangea/train
-./LLaVA-NeXT/scripts/train/finetune_pangea.sh
+bash LLaVA-NeXT/scripts/train/mammoth_vl/finetune_qwen_2_5_si.sh
+```
+
+### Stage 3: Fine-tuning(OV)
+
+After obtaining the fine-tuning data, run the following script to begin fine-tuning:
+
+```
+cd train
+
+bash LLaVA-NeXT/scripts/train/mammoth_vl/finetune_qwen_2_5_ov.sh
 ```
 
 ## Evaluation
@@ -114,37 +121,29 @@ To evaluate the model's capabilities:
 1. **Navigate to the Evaluation Directory**:
 
 ```bash
-cd pangea/evaluation
+cd eval
 ```
 
 2. **Run the Evaluation Script**:
 
+To run the evaluation, use the following command:
+
 ```bash
-model=Pangea
-model_type=llava
-python3 -m accelerate.commands.launch \
-         --num_processes=8 \
-         -m lmms_eval \
-         --model $model_type \
-         --model_args pretrained=$model,conv_template=qwen_1_5 \
-         --tasks ${task} \
-         --batch_size 1 \
-         --log_samples \
-         --log_samples_suffix ${task} \
-         --output_path eval_logs
+export HF_HOME=xxx
+export HF_TOKEN=xxx
+export MLP_WORKER_0_PORT=xxx 
+export OPENAI_API_KEY=xxx
+source yourpath/miniconda3/bin/activate lmms-eval
+FINAL_RUN_NAME=$1
+Task_Name=$2
+
+CUDA_VISIBLE_DEVICES=0 accelerate launch --num_processes=1 -m lmms_eval --model llava_onevision --model_args pretrained=${FINAL_RUN_NAME},conv_template=qwen_2_5,model_name=llava_qwen --tasks mmmu_val --batch_size 1 --log_samples --log_samples_suffix ${Task_Name} --output_path xxx
 ```
 
-If you would like to evaluate other models on PangeaBench, Replace `${model}` with the path to your model, `${model_type}` with you model type, and `${task}` with the specific evaluation task you wish to perform. Note that we use `conv_template=qwen_1_5` for Pangea, you could change this when using other models.
+Here, `${FINAL_RUN_NAME}` refers to either a locally available model or a model on HuggingFace, identified by its repository ID. Note that we use `conv_template=qwen_2_5` for MAmmoTH-VL. You should remove this or change to other conv_template when appropriate.
 
-For detailed instructions and examples, refer to the `script.sh` file in the evaluation directory.
+`eval/lmms-eval/eval_mammoth_vl_example.sh` shows an example script to run evaluation.
 
 ## Citation
 ```
-@article{yue2024pangeafullyopenmultilingual,
-  title={Pangea: A Fully Open Multilingual Multimodal LLM for 39 Languages},
-  author={Xiang Yue and Yueqi Song and Akari Asai and Seungone Kim and Jean de Dieu Nyandwi and Simran Khanuja and Anjali Kantharuban and Lintang Sutawika and Sathyanarayanan Ramamoorthy and Graham Neubig},
-  year={2024},
-  journal={arXiv preprint arXiv:2410.16153},
-  url={https://arxiv.org/abs/2410.16153}
-}
 ```

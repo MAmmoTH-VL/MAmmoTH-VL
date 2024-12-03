@@ -1,6 +1,6 @@
-## Evaluation on PangeaBench
+## Evaluation
 
-To run the evaluation on PangeaBench, use the following command:
+To run the evaluation, use the following command:
 
 ```bash
 export HF_HOME=xxx
