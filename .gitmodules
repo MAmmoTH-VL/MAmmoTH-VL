@@ -1,0 +1,3 @@
+[submodule "eval/eval/lmms-eval"]
+	path = eval/eval/lmms-eval
+	url = https://github.com/EvolvingLMMs-Lab/lmms-eval.git

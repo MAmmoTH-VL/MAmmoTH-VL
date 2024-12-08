@@ -1,0 +1,11 @@
+datasets:
+  - json_path: mammoth_ov_part1(1003_8M).json
+    sampling_strategy: "all"
+  - json_path: mammoth_ov_part2(1029_3M).json
+    sampling_strategy: "all"
+  - json_path: mammoth_ov_multi(700K).json
+    sampling_strategy: "all"
+  - json_path: mammoth_ov_video_part1(60K).json
+    sampling_strategy: "all"
+  - json_path: mammoth_ov_video_part2(255k_filtered).json
+    sampling_strategy: "all"
