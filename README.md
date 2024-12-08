@@ -1,4 +1,4 @@
-# MAmmoTH-VL: Scaling Synthetic Multimodal Instruction Data with Open Models
+# MAmmoTH-VL: Eliciting Multimodal Reasoning with Instruction Tuning at Scale
 
 [Homepage](https://mammoth-vl.github.io/) | [Model](https://huggingface.co/MMSFT/MAmmoTH-VL-8B) | [Dataset](https://huggingface.co/datasets/MMSFT/MAmmoTH-VL-12M) | [Github](https://github.com/orgs/MAmmoTH-VL/MAmmoTH-VL)
 | [Arxiv](https://arxiv.org/abs/2410.16153) | [PDF](https://arxiv.org/pdf/2410.16153) | [Demo](https://huggingface.co/spaces/MMSFT/MAmmoTH-VL-8B)
@@ -6,7 +6,8 @@
 This repository provides the necessary resources and guidelines for training and evaluating.
 
 ## About MAmmoTH-VL
-"Connector-training" methods (e.g., LLaVA) have significantly advanced open multimodal large language models (MLLMs) by integrating pretrained visual encoders with LLMs through a simple projection layer. These methods rely on high-quality supervised fine-tuning (SFT) data, yet generating large-scale datasets remains challenging in open-source settings due to constraints in cost, diversity, and accessibility. This paper introduces a cost-effective, scalable methodology to construct a 12-million-entry multimodal dataset using only open models. The approach involves (1) collecting and categorizing diverse instruction datasets into task-specific categories, (2) augmenting and rewriting data with open-weight MLLMs and LLMs, and (3)  quality filtering to ensure relevance and reduce hallucination. Our experimental results show that a model trained on this dataset, MAmmoTH-VL-8B, a fully open-source MLLM, achieves state-of-the-art performance on 10 datasets. This work establishes a scalable pathway for advancing open-source MLLMs with high-quality datasets.
+Open-source multimodal large language models (MLLMs) have shown significant potential in a broad range of multimodal tasks. However, their reasoning capabilities remain constrained by existing instruction-tuning datasets, which were predominately repurposed from academic datasets such as VQA, AI2D, and ChartQA. These datasets target simplistic tasks, and only provide phrase-level answers without any intermediate rationales.
+To address these challenges, we introduce a scalable and cost-effective method to construct a large-scale multimodal instruction-tuning dataset with rich intermediate rationales designed to elicit CoT reasoning. Using only open models, we create a dataset containing 12M instruction-response pairs to cover diverse, reasoning-intensive tasks with detailed and faithful rationales. Experiments demonstrate that training MLLMs on this dataset significantly improves reasoning capabilities, achieving state-of-the-art performance on benchmarks such as MathVerse (+8.1%), MMMU-Pro (+7%), and MuirBench (+13.3%). Additionally, the model demonstrates notable improvements of up to 4% on non-reasoning-based benchmarks. Ablation studies further highlight the importance of key components, such as rewriting and self-filtering, in the dataset construction process.
 
 ## Repository Structure
 
