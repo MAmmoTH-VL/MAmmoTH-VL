@@ -1,7 +1,7 @@
 # MAmmoTH-VL: Eliciting Multimodal Reasoning with Instruction Tuning at Scale
 
-[Homepage](https://mammoth-vl.github.io/) | [Model](https://huggingface.co/MMSFT/MAmmoTH-VL-8B) | [Dataset](https://huggingface.co/datasets/MMSFT/MAmmoTH-VL-12M) | [Github](https://github.com/orgs/MAmmoTH-VL/MAmmoTH-VL)
-| [Arxiv](https://arxiv.org/abs/2410.16153) | [PDF](https://arxiv.org/pdf/2410.16153) | [Demo](https://huggingface.co/spaces/MMSFT/MAmmoTH-VL-8B)
+[Homepage](https://mammoth-vl.github.io/) | [Model](https://huggingface.co/MAmmoTH-VL/MAmmoTH-VL-8B) | [Dataset](https://huggingface.co/datasets/MAmmoTH-VL/MAmmoTH-VL-Instruct-12M) | [Code](https://github.com/MAmmoTH-VL/MAmmoTH-VL)
+| [Arxiv](https://arxiv.org/abs/2412.05237) | [PDF](https://arxiv.org/pdf/2412.05237) | [Demo](https://huggingface.co/spaces/paralym/MAmmoTH-VL-8B)
 
 This repository provides the necessary resources and guidelines for training and evaluating.
 
@@ -147,4 +147,13 @@ Here, `${FINAL_RUN_NAME}` refers to either a locally available model or a model 
 
 ## Citation
 ```
+@article{guo2024mammothvlelicitingmultimodalreasoning,
+      title={MAmmoTH-VL: Eliciting Multimodal Reasoning with Instruction Tuning at Scale}, 
+      author={Jarvis Guo and Tuney Zheng and Yuelin Bai and Bo Li and Yubo Wang and King Zhu and Yizhi Li and Graham Neubig and Wenhu Chen and Xiang Yue},
+      year={2024},
+      eprint={2412.05237},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.05237}, 
+}
 ```
