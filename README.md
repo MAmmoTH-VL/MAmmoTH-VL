@@ -1,4 +1,4 @@
-# MAmmoTH-VL: Eliciting Multimodal Reasoning with Instruction Tuning at Scale
+# (ACL 2025) MAmmoTH-VL: Eliciting Multimodal Reasoning with Instruction Tuning at Scale
 
 [Homepage](https://mammoth-vl.github.io/) | [Model](https://huggingface.co/MAmmoTH-VL/MAmmoTH-VL-8B) | [Dataset](https://huggingface.co/datasets/MAmmoTH-VL/MAmmoTH-VL-Instruct-12M) | [Code](https://github.com/MAmmoTH-VL/MAmmoTH-VL)
 | [Arxiv](https://arxiv.org/abs/2412.05237) | [PDF](https://arxiv.org/pdf/2412.05237) | [Demo](https://huggingface.co/spaces/paralym/MAmmoTH-VL-8B)
